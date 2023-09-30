@@ -26,7 +26,7 @@ const TipInput: FC<{ post: IPost }> = ({ post }) => {
     <div>
       <button
         className="border-2 border-gray-100 text-sm px-2 rounded-lg mr-4 hover:scale-x-110"
-        onClick={(e) => setShowTip(true)}
+        onClick={(e) => setShowTip(!showTip)}
       >
         Tip
       </button>
