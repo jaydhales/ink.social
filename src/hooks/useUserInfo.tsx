@@ -5,24 +5,15 @@ import {
   readInkContract,
   writeInkContract,
 } from "@/constants/utils";
-import { IPost } from "@/components/Timeline";
-
-export interface IProfile {
-  id: number;
-  posts: IPost[];
-  status: number;
-  totalTips: number;
-  user: Address;
-}
+import { IProfile } from "@/hooks/useProfile";
+import usePosts from "@/hooks/usePosts";
 
 const useProfile = (address: Address) => {
-  const [regStatus, setStatus] = useState<"NOT_REGISTERED" | "REGISTERED">(
-    "NOT_REGISTERED"
-  );
   const [profile, setProfile] = useState<IProfile>();
 
   useEffect(() => {
-    const runAsync = async () => {
+    const getUser = async () => {
+      if (!address) return;
       try {
         const _profile = await readInkContract("getUser", [address]);
         const { id, posts, status, totalTips, user } = _profile as IProfile;
@@ -33,22 +24,15 @@ const useProfile = (address: Address) => {
           totalTips: Number(totalTips),
           user,
         });
-        setStatus("REGISTERED");
       } catch (err) {
         console.log(err);
-        setStatus("NOT_REGISTERED");
       }
     };
 
-    runAsync().then((r) => r);
+    getUser().then((r) => r);
   }, [address]);
 
-  const registerUser = async () => {
-    const { hash } = await writeInkContract("register");
-    console.log(hash);
-  };
-
-  return { regStatus, registerUser, profile };
+  return { profile };
 };
 
 export default useProfile;

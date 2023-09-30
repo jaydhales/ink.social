@@ -1,4 +1,8 @@
-import { readInkContract, writeInkContract } from "@/constants/utils";
+import {
+  formatPost,
+  readInkContract,
+  writeInkContract,
+} from "@/constants/utils";
 import { tryCatch } from "rxjs/internal-compatibility";
 import { IPost } from "@/components/Timeline";
 import { Address } from "viem";
@@ -12,12 +16,7 @@ const UsePosts = () => {
       console.log(error);
     }
   };
-  const formatPost = (po: any): IPost => ({
-    ...po,
-    id: Number(po.id),
-    timePosted: Number(po.timePosted),
-    tips: Number(po.tips),
-  });
+
   const getAllPosts = async (start: number, end: number) => {
     try {
       const posts = (await readInkContract("getPosts", [
