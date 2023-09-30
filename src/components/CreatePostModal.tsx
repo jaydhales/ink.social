@@ -36,10 +36,9 @@ const CreatePostModal: FC<IModal> = ({ openModal, setOpenModal }) => {
         <label htmlFor="text" className={"text-xl font-bold"}>
           Ink it down
         </label>
-        <input
+        <textarea
           name="text"
           id="text"
-          type="text"
           value={postInput}
           required={postInput.length < 3}
           className={
