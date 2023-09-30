@@ -1,7 +1,7 @@
 import { readContract, writeContract } from "@wagmi/core";
 import { inkContract, inkTokenContract } from "@/constants/adresses";
 import inkAbi, { inkFns } from "@/abis/InkSocial";
-import $Ink from "@/abis/$Ink";
+import $Ink, {$TipFnTypes} from "@/abis/$Ink";
 import { IPost } from "@/components/Timeline";
 
 export const readInkContract = async (functionName: inkFns, args: any[] = []) =>
@@ -23,8 +23,16 @@ export const writeInkContract = async (
     args,
   });
 
-export const write$TipContract = async (functionName: any, args: any[] = []) =>
+export const write$TipContract = async (functionName: $TipFnTypes, args: any[] = []) =>
   await writeContract({
+    address: inkTokenContract,
+    abi: $Ink,
+    functionName,
+    args,
+  });
+
+export const read$TipContract = async (functionName: $TipFnTypes, args: any[] = []) =>
+  await readContract({
     address: inkTokenContract,
     abi: $Ink,
     functionName,

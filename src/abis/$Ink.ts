@@ -195,4 +195,18 @@ const abi = [
     "type": "function"
   }
 ]
+export type $TipFnTypes = "allowance" |
+"approve"  |
+"balanceOf"  |
+"decimals"  |
+"decreaseAllowance" | 
+"increaseAllowance" | 
+"name" | 
+"owner" | 
+"renounceOwnership" | 
+"symbol" | 
+"totalSupply" | 
+"transfer" | 
+"transferFrom" | 
+"transferOwnership"
 export default  abi;
