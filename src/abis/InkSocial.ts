@@ -1,4 +1,6 @@
-const abi = [
+import {Abi} from "viem";
+
+const abi: Abi = [
   {
     inputs: [
       { internalType: "address", name: "_inkToken", type: "address" },

@@ -44,7 +44,7 @@ const useProfile = (address: Address) => {
   }, [address]);
 
   const registerUser = async () => {
-    const { hash } = await writeInkContract("register");
+    const hash = await writeInkContract("register");
     console.log(hash);
   };
 

@@ -11,7 +11,7 @@ const TipInput: FC<{ post: IPost }> = ({ post }) => {
   const handleSendTip = async () => {
     if (tipAmount.length === 0) return;
     try {
-      const hash = await tipUser(post.poster, tipAmount)
+      const hash = await tipUser(post.poster, tipAmount, post.id)
       console.log(hash);
       setShowTip(false)
       setTipAmount("")
@@ -25,25 +25,25 @@ const TipInput: FC<{ post: IPost }> = ({ post }) => {
   return (
     <div>
       <button
-        className="border-2 border-gray-100 text-sm px-2 rounded-lg mr-4 hover:scale-x-110"
+        className="border-2 border-gray-100 px-3 rounded-lg  hover:font-bold block ml-auto w-max"
         onClick={(e) => setShowTip(!showTip)}
       >
-        Tip
+        Tip Post
       </button>
       <div
         className={`${
-          showTip ? "block" : "hidden"
-        } absolute right-0 top-full py-2 px-3 border-2 border-gray-100 rounded-lg bg-white bg-opacity-10 backdrop-blur-sm grid gap-2`}
+          showTip ? "flex" : "hidden"
+        } absolute w-36 right-0 top-full p-1 border border-gray-500 rounded-lg bg-white bg-opacity-40 backdrop-blur-sm gap-2`}
       >
         <input
           type="number"
           step={0.01}
           value={tipAmount}
           onChange={(e) => setTipAmount(e.target.value)}
-          className="rounded text-black p-2"
+          className="rounded text-black px-2 py-0.5 w-full focus-visible:outline-0"
         />
-        <button className="bg-gray-700 rounded" onClick={handleSendTip}>
-          Send Tip
+        <button className="bg-gray-700 rounded px-2" onClick={handleSendTip}>
+          Tip
         </button>
       </div>
     </div>

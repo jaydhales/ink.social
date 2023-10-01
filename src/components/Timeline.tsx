@@ -4,7 +4,9 @@ import { Address } from "viem";
 import Avatar from "boring-avatars";
 import { formatDate, shortenAccount } from "@/utils";
 import Link from "next/link";
-import TipInput from "@/components/TipInput";
+import {useContractRead} from "wagmi";
+import {inkContract} from "@/constants/adresses";
+import inkAbi, { inkFns } from "@/abis/InkSocial";
 
 export interface IPost {
   content: string;
@@ -15,26 +17,40 @@ export interface IPost {
 }
 
 const Timeline = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([])
 
   const { getAllPosts } = usePosts();
 
-  useEffect(() => {
-    getAllPosts(0, 11)
-      .then((data) => setPosts(data!))
-      .catch((err) => err);
-  }, []);
+  const {data, isLoading} = useContractRead({
+    address: inkContract,
+    abi: inkAbi,
+    functionName: "getPosts",
+    args: [0, 50],
+    watch: true,
+    onSuccess(data) {
+      setPosts(data as unknown as IPost[])
+    },
+  });
+
+  console.log(posts);
+  
+
+  // useEffect(() => {
+  //   getAllPosts(0, 50)
+  //     .then((data) => setPosts(data!))
+  //     .catch((err) => err);
+  // }, []);
   return (
     <div>
       <p>Inkers on Deck!!!</p>
       <div className="grid gap-4 max-w-2xl mx-auto">
-        {posts.map((post) => {
+        {(posts).map((post , index) => {
           if (post.poster === "0x0000000000000000000000000000000000000000")
             return;
           return (
             <div
               className="border-2 border-gray-300 rounded-lg py-4 px-2 text-white"
-              key={post.id}
+              key={index}
             >
               <div className="flex justify-between items-center mb-4 relative">
                 <Link
@@ -45,12 +61,12 @@ const Timeline = () => {
                   <div>
                     <p className="font-black">{shortenAccount(post.poster)}</p>
                     <p className={"text-[12px] font-black"}>
-                      {formatDate(post.timePosted)}
+                      {/* {formatDate(post.timePosted)} */}
                     </p>
                   </div>
                 </Link>
 
-                <TipInput post={post} />
+                
               </div>
               <Link
                 href={`posts/${post.id}`}

@@ -10,7 +10,7 @@ import { Address } from "viem";
 const UsePosts = () => {
   const createPost = async (post: string) => {
     try {
-      const { hash } = await writeInkContract("createPost", [post]);
+      const hash = await writeInkContract("createPost", [post]);
       return hash;
     } catch (error) {
       console.log(error);

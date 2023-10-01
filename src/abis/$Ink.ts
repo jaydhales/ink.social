@@ -1,4 +1,6 @@
-const abi = [
+import {Abi} from "viem";
+
+const abi: Abi = [
   { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
   {
     "anonymous": false,

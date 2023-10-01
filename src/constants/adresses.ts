@@ -1,4 +1,4 @@
 // noinspection JSUnusedGlobalSymbols
 
-export const inkContract = "0x2B7Ff1FaF8Bd8063D51054873c71AEB7Ad9AB75C";
-export const inkTokenContract = "0x740c89Dd134e9bAf5CA67F111F7EeBb970d936dc";
+export const inkContract = "0x016421AE35494F410A9F52746B43962C3Ec690ab";
+export const inkTokenContract = "0x1283Fe4a1a5BE984471702a5780846656a3Ded2B";
